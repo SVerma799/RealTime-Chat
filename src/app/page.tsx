@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Button from "./components/ui/Button";
 import { db } from "@/lib/db";
+import Button from "@/components/ui/Button";
 
 export default async function Home() {
   await db.set("Hello from the server!", "hello");
