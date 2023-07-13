@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
   ],
   // Custom pages for signin and signout.
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/login",
   },
   // Callbacks for session and jwt.
   callbacks: {
