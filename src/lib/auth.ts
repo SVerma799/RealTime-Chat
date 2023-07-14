@@ -35,7 +35,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ user, token }) {
       // Benefit for using a type.d.ts file is that You dont need to import it.
       // They are available globally.
-      const dbUser = (await db.get(`user ${token.id}`)) as User | null;
+      const dbUser = (await db.get(`user:${token.id}`)) as User | null;
 
       if (!dbUser) {
         token.id = user!.id;

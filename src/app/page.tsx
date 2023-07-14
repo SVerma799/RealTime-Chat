@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { db } from "@/lib/db";
 import Button from "@/components/ui/Button";
+import Link from "next/link";
 
 export default async function Home() {
   await db.set("Hello from the server!", "hello");
@@ -18,6 +19,7 @@ export default async function Home() {
       <Button variant="ghost" size="sm">
         Ghost
       </Button>
+      <Link href="/login">Login</Link>
     </div>
   );
 }
