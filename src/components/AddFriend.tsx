@@ -21,9 +21,12 @@ const AddFriend: FC<AddFriendProps> = ({}) => {
   } = useForm<FormData>({
     resolver: zodResolver(addFriendValidator),
   });
+
   const addFriendHandler = async (email: string) => {
     try {
       /// take care of the syntax here
+
+      // over here addFriendValidator parse the email and return the validated email object with email property
       const validatedEmail = addFriendValidator.parse({ email });
 
       await axios.post("/api/friends/add", { email: validatedEmail.email });
@@ -31,6 +34,8 @@ const AddFriend: FC<AddFriendProps> = ({}) => {
       setShowSuccessState(true);
     } catch (err) {
       // if error is occured.
+      // This is the error handling part
+      // if error is occured of Zod Error then we display the error message
       if (err instanceof z.ZodError) {
         // if error is occured.
         setError("email", {
@@ -39,6 +44,8 @@ const AddFriend: FC<AddFriendProps> = ({}) => {
 
         return;
       }
+
+      // if error is occured of Axios Error then we display the error message
       if (err instanceof AxiosError) {
         // if error is occured.
         setError("email", {
@@ -47,12 +54,14 @@ const AddFriend: FC<AddFriendProps> = ({}) => {
         return;
       }
 
+      // Rest if error is occured generic one, we capture that and display the message.
       setError("email", {
         message: "Something went wrong",
       });
     }
   };
 
+  // SubmitAction is the function which is called when the form is submitted
   const submitAction = (data: FormData) => {
     addFriendHandler(data.email);
   };
@@ -74,9 +83,10 @@ const AddFriend: FC<AddFriendProps> = ({}) => {
         />
         <Button>Add</Button>
       </div>
-      <p className="mt-1 text-sm text-red-600">{errors.email?.message}</p>
-      {showSuccessState && (
+      {showSuccessState ? (
         <p className="mt-1 text-sm text-green-600">Friend Added</p>
+      ) : (
+        <p className="mt-1 text-sm text-red-600">{errors.email?.message}</p>
       )}
     </form>
   );
